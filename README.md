@@ -1,7 +1,7 @@
 # Installation
 ## Prerequisites
 - Node 18
-- IvorySQL 5.3
+- IvorySQL 5.6
 - Kubernetes 1.23 (Must have default storage class)
 
 ## Installation instructions
@@ -47,7 +47,7 @@ server {
         listen       9104;
         server_name  127.0.0.1;
         location / {
-            root   /home/cloud/web/dist;
+            root   /opt/cloud/web/dist;
             index  index.html index.htm;
         }
         error_page   500 502 503 504  /50x.html;
