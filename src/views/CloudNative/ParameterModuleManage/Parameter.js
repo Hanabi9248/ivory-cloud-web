@@ -91,7 +91,7 @@ export function validateInput(row) {
 export function modifyParams() {
   const _this = this
   // console.log(_this.allowCommit)
-  if (_this.allowCommit) {
+  if (_this.allowCommit && !_this.parameterList.some(item => item.isEdit)) {
     // for (let i = 0; i < _this.parameterList.length; i++) {
     //   if (_this.parameterList[i].targetValue) {
     //     _this.updateParams.push({ 'paramName': _this.parameterList[i].name, 'targetValue': _this.parameterList[i].targetValue })
