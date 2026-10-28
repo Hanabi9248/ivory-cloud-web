@@ -129,9 +129,10 @@ export default {
     },
     setTimer() {
       var _this = this
-     // _this.clock = window.setInterval(() => {
+      if (_this.clock) return
+      _this.clock = window.setInterval(() => {
         _this.getMonitorUrlTimer()
-     // }, 10000)
+      }, 10000)
     },
     getMonitorUrlTimer() {
       const _this = this
@@ -151,6 +152,8 @@ export default {
         if (res.data.monitorStatus === 'CREATING') {
           _this.isClusterNotChecked = false
         } else if (res.data.monitorStatus === 'RUNNING') {
+          window.clearInterval(_this.clock)
+          _this.clock = null
           _this.isClusterNotChecked = true
           console.log(res.data.monitorUrl)
           if (res.data.monitorUrl) {
