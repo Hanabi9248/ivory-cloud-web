@@ -83,6 +83,7 @@ export default {
         ]
       },
       storageExpansionVisible: false,
+      storageDialogRevision: 0,
       size: 'mini',
       isButtonLoading: false
     }
@@ -90,6 +91,7 @@ export default {
   watch: {
     visible: {
       handler(value) {
+        this.storageDialogRevision++
         // console.log(value)
         this.storageExpansionVisible = value
       }
