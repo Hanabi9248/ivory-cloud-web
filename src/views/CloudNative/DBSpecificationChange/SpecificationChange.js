@@ -25,6 +25,7 @@ export function getSpecInfos(row) {
 }
 export function modifySpecs(updateForm) {
   const _this = this
+  const specificationForm = _this.specificationForm
   this.$refs[`${updateForm}`].validate((valid) => {
     if (valid) {
       _this.isButtonLoading = true
@@ -34,6 +35,7 @@ export function modifySpecs(updateForm) {
           'memory': _this.updateForm.memory
         },
         { headers: { 'Content-Type': 'application/json; charset=UTF-8' }}).then(res => {
+        if (!_this.modifySpecVisible || _this.specificationForm !== specificationForm) return
         if (res.status === 200) {
           _this.$message.success('下发指令成功，正在修改中...')
           setTimeout(() => { _this.$parent.getTableList() }, 300)
@@ -43,6 +45,7 @@ export function modifySpecs(updateForm) {
           _this.isButtonLoading = false
         }
       }).catch(function(error) {
+        if (!_this.modifySpecVisible || _this.specificationForm !== specificationForm) return
         _this.$message.error(error)
         _this.isButtonLoading = false
       })
