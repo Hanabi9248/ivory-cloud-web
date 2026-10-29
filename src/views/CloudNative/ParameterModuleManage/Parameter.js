@@ -104,11 +104,14 @@ export function modifyParams() {
       }
     })
     const params = _this.updateParams
+    const parameterList = _this.parameterList
+    const instanceId = _this.instanceId
     // console.log(params)
-    this.axios.put('/instances/' + _this.instanceId + '/parameters',
+    this.axios.put('/instances/' + instanceId + '/parameters',
       { 'description': '', 'params': params },
       { headers: { 'Content-Type': 'application/json; charset=UTF-8' }}
     ).then(res => {
+      if (!_this.modifyParamsVisible || _this.instanceId !== instanceId || _this.parameterList !== parameterList) return
       if (res.status === 200) {
         _this.$message.success('下发指令成功，正在修改中...')
         setTimeout(() => { _this.$parent.getTableList() }, 300)
@@ -118,6 +121,7 @@ export function modifyParams() {
         return false
       }
     }).catch((error) => {
+      if (!_this.modifyParamsVisible || _this.instanceId !== instanceId || _this.parameterList !== parameterList) return
       this.$message.error(error)
     })
   } else {
@@ -144,8 +148,11 @@ export function getParamLists(row) {
   const clusterName = row.clusterName
   const namespace = row.namespace
   const _this = this
+  const parameterList = []
+  _this.parameterList = parameterList
   this.axios.get('/instances/' + instanceId + '/parameters', {})
     .then((response) => {
+      if (!_this.modifyParamsVisible || _this.parameterList !== parameterList) return
       _this.listLoading = false
       _this.parameterList = response.data
       _this.instanceId = instanceId
@@ -154,6 +161,7 @@ export function getParamLists(row) {
       _this.namespace = namespace
     })
     .catch((error) => {
+      if (!_this.modifyParamsVisible || _this.parameterList !== parameterList) return
       this.$message.error(error)
     })
 }
