@@ -5,10 +5,11 @@ export function getSpecInfos(row) {
   const clusterName = row.clusterName
   const namespace = row.namespace
   const _this = this
-  _this.specificationForm.cpu = ''
-  _this.specificationForm.memory = ''
+  const specificationForm = { cpu: '', memory: '' }
+  _this.specificationForm = specificationForm
   this.axios.get('/instances/' + instanceId, {})
     .then((response) => {
+      if (!_this.modifySpecVisible || _this.specificationForm !== specificationForm) return
       _this.listLoading = false
       _this.specificationForm.cpu = response.data.cpu
       _this.specificationForm.memory = response.data.memory
@@ -18,6 +19,7 @@ export function getSpecInfos(row) {
       _this.namespace = namespace
     })
     .catch((error) => {
+      if (!_this.modifySpecVisible || _this.specificationForm !== specificationForm) return
       this.$message.error(error)
     })
 }
