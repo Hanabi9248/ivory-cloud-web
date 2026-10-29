@@ -152,7 +152,7 @@ export default {
         } else {
           this.$message.error('修改状态失败！')
         }
-      }).catch(function(error) {
+      }).catch((error) => {
         this.$message.error(error)
       })
     },
