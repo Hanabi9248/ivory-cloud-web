@@ -21,9 +21,10 @@ export function getStorageInfo(row) {
 }
 export function expandStorage(updateForm) {
   const _this = this
+  if (_this.isButtonLoading) return
+  _this.isButtonLoading = true
   this.$refs[`${updateForm}`].validate((valid) => {
     if (valid) {
-      _this.isButtonLoading = true
       this.axios.post('/instances/' + _this.instanceId + '/action/storage',
         { 'storageSize': _this.updateForm.storage },
         { headers: { 'Content-Type': 'application/json; charset=UTF-8' }}).then(res => {
