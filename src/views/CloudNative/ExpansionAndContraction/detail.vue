@@ -230,6 +230,7 @@ export default {
         }
         _this.getRuleList()
       }).catch(function(error) {
+        _this.listLoading = false
         _this.$message.error(error)
       })
     },
@@ -241,6 +242,7 @@ export default {
         var list = _this.AddChecked(res.data)
         this.list = list
       }).catch(function(error) {
+        _this.listLoading = false
         _this.$message.error(error)
       })
     },
