@@ -64,7 +64,12 @@
 
       <el-table-column property="recovery" label="操作" width="70" fixed="right">
         <template slot-scope="scope">
-          <el-button size="mini" type="text" @click="recovery(scope.row)">
+          <el-button
+            size="mini"
+            type="text"
+            :disabled="!['COMPLETED', 'RESTORED', 'RESTORE_FAILED'].includes(scope.row.status)"
+            @click="recovery(scope.row)"
+          >
             恢复
           </el-button>
         </template>
